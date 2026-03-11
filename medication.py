@@ -15,12 +15,28 @@ class Medication():
         self.name = name
         self.amountInStock = amount_in_stock
 
+        # Observer pattern 
+        self.observers = []
+        
+    def add_observer(self, prescription):
+        self.observers.append(prescription)
+                              
+    def remove_observer(self, prescription): 
+        if prescription in self.observers:
+           self.observers.remove(prescription) 
+
+    def notifiy_observers(self):
+        for observer in self.observers:
+            observer.update(self.stock)
+
+
     def restock(self, amount):
         """        
         :param self
         :param amount (int): The amount to increase the stock by
         """
         self.amountInStock += amount
+        self.notifiy_observers() 
 
     
     def reduce_stock(self, amount):
@@ -34,3 +50,8 @@ class Medication():
         :returns True or False
         """
         return self.amountInStock >= dosage
+    
+    
+
+          
+                                                                           
