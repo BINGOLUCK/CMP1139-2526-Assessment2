@@ -15,7 +15,7 @@ class AppointmentDecorator:
     def get_notes(self):
         return self.appointment.get_notes()
     
-class VaccinationAppointment(AppointmentDecorator):
+class VaccinationDecorator(AppointmentDecorator):
     """
     Adds vac notes to an appointment
     """
