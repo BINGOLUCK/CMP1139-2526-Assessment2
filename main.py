@@ -87,7 +87,13 @@ class UserInterface:
 
         #--------
         # modify this line of code to try out your decorator pattern.
+        from appointment_decorator import VaccinationDecorator, SurgeryDecorator
         appointment = Appointment(pet, time)
+
+        # Decorators
+        appointment = VaccinationDecorator(appointment)
+        appointment = VaccinationDecorator(appointment)
+        appointment = SurgeryDecorator(appointment)
         #---------
 
         # add the appointment to the vet's list

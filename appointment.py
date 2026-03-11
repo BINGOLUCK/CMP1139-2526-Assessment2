@@ -10,13 +10,13 @@ class Appointment:
         Appointment constructor
         
         :param pet (Pet): the pet the appointment is for
-        :param time (str): A string containing the date/time of the appointment
+        :param time (str): the date/time of the appointment
         """
         self.pet = pet
         pet.add_appointment(self)
         self.time = time
 
-        # notes will be added when the appointment is attended
+        # Notes will be added when the appointment is attended
         self.notes = []
 
     def attend_appointment(self):
@@ -25,7 +25,7 @@ class Appointment:
         :param self
         """
 
-        print("Enter pet weight: ")
+        print("Enter pet weight:")
         note = input()
         self.notes.append(f"weight= {note}")
 
