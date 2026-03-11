@@ -32,18 +32,33 @@ class Prescription():
         self.pet = pet
         self.medication = medication
         self.dosage = dosage
+
+        self.medication.add_observer(self) # add this prescription as an observer of the medication so that the prescription can be notified when the stock level changes
         
         self._prepareOrWaitForStock()
+        
+    def update(self, stock):
+        """ Just calls when stock chaanges
+        """
+        if self.status == PrescriptionStatus.ready_for_collection or self.status == PrescriptionStatus.collected:
+            return # if the prescription is already ready for collection or collected, we don't need to check the stock level
+        
+        if stock>= self.dosage:
+            self.status = PrescriptionStatus.preparing_order
+        else:
+            self.status = PrescriptionStatus.out_of_stock
 
 
     def _prepareOrWaitForStock(self):
         """ Checks if there is enough medication is stock for this prescription.
         :param self
         """
+    
         if self.medication.has_enough_stock(self.dosage):
             self.status = PrescriptionStatus.preparing_order
         else:
             self.status = PrescriptionStatus.out_of_stock
+
 
     def prepareForCollection(self):
         """ If the status is preparing_order, the order becomes ready_for_collection
@@ -53,6 +68,11 @@ class Prescription():
         if self.status == PrescriptionStatus.preparing_order:
             self.medication.reduce_stock(self.dosage)
             self.status = PrescriptionStatus.ready_for_collection
+
+        #  stops observing stock levels
+            self.medication.remove_observer(self)
+    
+        
             return True
         else:
             return False
