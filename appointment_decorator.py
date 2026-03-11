@@ -15,11 +15,12 @@ class AppointmentDecorator:
     def get_notes(self):
         return self.appointment.get_notes()
     
-    class VaccinationAppointment(AppointmentDecorator):
-        """
-        Adds vac notes to an appointment"""
+class VaccinationAppointment(AppointmentDecorator):
+    """
+    Adds vac notes to an appointment
+    """
 
-    def atttend_appointment(self):
+    def attend_appointment(self):
         # calls the original appointment method
         super().attend_appointment()
 
@@ -30,9 +31,10 @@ class AppointmentDecorator:
            f"vaccination= {vaccination}"
         )
 
-        class surgeryDecorator(AppointmentDecorator):
-            """
-            Adds surgery notes to an appointment"""
+class SurgeryDecorator(AppointmentDecorator):
+    """
+    Adds surgery notes to an appointment
+    """
 
     def attend_appointment(self):
 
